@@ -216,7 +216,7 @@
         const requestData = async () => {
             const res = await fetch('./WRD.txt');
             const text = await res.text();
-            const lines = text.split('\n').slice(0, 15000);
+            const lines = text.split('\n').slice(0, 5000);
             return lines;
         }
 

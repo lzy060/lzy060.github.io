@@ -94,6 +94,7 @@
         .btn-link {
             background: transparent;
             color: white;
+            margin-left: 20px;
         }
 
         #hud {
@@ -113,6 +114,7 @@
     </div>
 
     <script>
+        let loopStarted = false;
         const key = 'LEARNING-HOURS';
         alert(`${Number(localStorage.getItem(key))} HOURS`)
         const addLearningHours = () => {
@@ -206,7 +208,6 @@
                 utterance.onerror = (event) => {
                     alert("Speech error:", event.error);
                 };
-
                 synth.speak(utterance);
             }
             speakOnce(); // start the first one
@@ -215,7 +216,7 @@
         const requestData = async () => {
             const res = await fetch('./SNT1.txt');
             const text = await res.text();
-            const lines = text.split('\n');
+            const lines = text.split('\n').slice(0, 15000);
             return lines;
         }
 
@@ -224,11 +225,12 @@
             ++nClicked;
             curSentence = sentence;
             renderHud();
-
-
+            if (loopStarted === false) {
+                workerLoop();
+                loopStarted = true;
+            }
         }
         const onLoad = async () => {
-            workerLoop();
             const sentences = await requestData();
             const list = document.getElementById("sentenceList");
             sentences.forEach(sentence => {

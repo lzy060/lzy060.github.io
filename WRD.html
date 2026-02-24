@@ -208,7 +208,6 @@
                 utterance.onerror = (event) => {
                     alert("Speech error:", event.error);
                 };
-
                 synth.speak(utterance);
             }
             speakOnce(); // start the first one
@@ -222,20 +221,14 @@
         }
 
         const handleClickRow = async (sentence) => {
-
-            if (loopStarted === false) {
-                workerLoop();
-                loopStarted = true;
-            }
-
-
-
             console.log(sentence);
             ++nClicked;
             curSentence = sentence;
             renderHud();
-
-
+            if (loopStarted === false) {
+                workerLoop();
+                loopStarted = true;
+            }
         }
         const onLoad = async () => {
             const sentences = await requestData();

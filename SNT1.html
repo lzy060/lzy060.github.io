@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentences • One Per Line</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #0f0f11;
+            color: #e0e0e5;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            margin-bottom: 2rem;
+            color: #a5d6ff;
+            text-align: center;
+            opacity: 0.92;
+        }
+
+        .sentence-list {
+            counter-reset: sentence;
+            list-style: none;
+            padding: 0;
+        }
+
+        .sentence-item {
+            counter-increment: sentence;
+            position: relative;
+            padding: 16px 24px 16px 64px;
+            margin-bottom: 12px;
+            background: #1a1a20;
+            border-radius: 10px;
+            /* border-left: 4px solid #4a90e2; */
+            transition: all 0.18s ease;
+            /* min-height: 3.2em; */
+        }
+
+        /* .sentence-item:hover {
+            transform: translateX(8px);
+            background: #22222a;
+            border-left-color: #6ab0f3;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        } */
+
+        .sentence-item::before {
+            content: counter(sentence);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            /* font-size: 1.4rem;
+            /* font-weight: bold; */
+            */ color: #5a8ee0;
+            opacity: 0.7;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        .text {
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        /* Optional: quote-like style variant */
+        .sentence-item.quote-style {
+            border-left: 5px solid #ff9f1c;
+            background: #201a14;
+        }
+
+        .sentence-item.quote-style:hover {
+            border-left-color: #ffb347;
+        }
+
+        .sentence-item.quote-style::before {
+            content: "”";
+            font-size: 3rem;
+            line-height: 1;
+            color: #ff9f1c44;
+            font-family: Georgia, serif;
+            left: 18px;
+        }
+
+        .btn-link {
+            background: transparent;
+            color: white;
+        }
+
+        #hud {
+            position: fixed;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 id="hud"></h1>
+
+        <ol class="sentence-list" id="sentenceList"></ol>
+    </div>
+
+    <script>
+        const key = 'LEARNING-HOURS';
+        alert(`${Number(localStorage.getItem(key))} HOURS`)
+        const addLearningHours = () => {
+            const h = Number(localStorage.getItem(key));
+            localStorage.setItem(key, h + 1);
+            console.log();
+        }
+        const timerHour = setInterval(() => {
+            addLearningHours();
+        }, 3600 * 1000);
+
+        const renderHud = () => {
+            const hud = document.getElementById("hud")
+            if (nClicked > 0) {
+                hud.innerText = `${nClicked}`;
+            } else {
+                hud.innerText = `${''}`;
+            }
+        };
+
+        let curSentence = '';
+        let nClicked = 0;
+
+        const workerLoop = async () => {
+            console.log('workerLoop')
+            const loopWaitingNextTask = () => {
+                setTimeout(workerLoop, 1000);
+            }
+
+            sentence = curSentence;
+            if (!sentence || nClicked <= 0) {
+                loopWaitingNextTask()
+                return;
+            }
+
+            if (!('speechSynthesis' in window)) {
+                alert("Your browser does not support text-to-speech.");
+                return;
+            }
+
+            const synth = window.speechSynthesis;
+            synth.cancel(); // stop anything currently playing
+
+            // Wait for voices if not loaded yet (important!)
+            let voices = synth.getVoices();
+            if (voices.length === 0) {
+                await new Promise(resolve => {
+                    synth.onvoiceschanged = () => {
+                        voices = synth.getVoices();
+                        resolve();
+                    };
+                });
+            }
+
+            // Try to find a good Japanese voice
+            let japaneseVoice = voices.find(v => v.lang === "ja-JP" || v.lang === "ja");
+
+            // Fallback: any ja* voice
+            if (!japaneseVoice) {
+                japaneseVoice = voices.find(v => v.lang.startsWith("ja"));
+            }
+
+            if (!japaneseVoice) {
+                alert("No Japanese voice found on this device/browser.\n\nTry Chrome/Edge or install Japanese TTS voices in system settings.");
+                return;
+            }
+
+            if (!sentence) return;
+
+            function speakOnce() {
+                console.log(nClicked, sentence);
+                const utterance = new SpeechSynthesisUtterance(sentence);
+
+                utterance.voice = japaneseVoice;
+                utterance.lang = "ja-JP";           // helps even if voice is set
+                utterance.rate = 1.0;               // 0.8–1.2 usually sounds natural for Japanese
+                utterance.pitch = 1.0;
+                utterance.volume = 0.95;
+
+                utterance.onend = () => {
+                    nClicked--;
+                    renderHud();
+                    if (nClicked > 0) {
+                        setTimeout(speakOnce, 600);
+                    } else {
+                        // loop and  waiting task
+                        loopWaitingNextTask();
+                    }
+                };
+
+                utterance.onerror = (event) => {
+                    alert("Speech error:", event.error);
+                };
+
+                synth.speak(utterance);
+            }
+            speakOnce(); // start the first one
+        }
+
+        const requestData = async () => {
+            const res = await fetch('./SNT1.txt');
+            const text = await res.text();
+            const lines = text.split('\n');
+            return lines;
+        }
+
+        const handleClickRow = async (sentence) => {
+            console.log(sentence);
+            ++nClicked;
+            curSentence = sentence;
+            renderHud();
+
+
+        }
+        const onLoad = async () => {
+            workerLoop();
+            const sentences = await requestData();
+            const list = document.getElementById("sentenceList");
+            sentences.forEach(sentence => {
+                const li = document.createElement("li");
+                li.className = "sentence-item";
+                li.innerHTML = `<span class="text">${sentence}</span>`;
+                list.appendChild(li);
+                li.addEventListener("click", (e) => {
+                    li.style = 'background: #22222a';
+                    setTimeout(() => {
+                        li.style = 'background: unset';
+                    }, 100)
+
+                    e.stopPropagation();
+                    handleClickRow(sentence);
+                });
+
+                const btns = [{ name: 'link', text: '->' }]
+                btns.forEach((itBtn) => {
+                    const copyBtn = document.createElement("button");
+                    copyBtn.type = "button";
+                    copyBtn.className = "btn-" + itBtn.name;
+                    copyBtn.textContent = itBtn.text;
+                    copyBtn.title = itBtn.text;
+                    li.appendChild(copyBtn);
+                    copyBtn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        window.open(`https://jpdb.io/search?q=${sentence}`, '_blank')
+                    });
+                })
+            });
+        }
+
+        onLoad();
+
+    </script>
+
+</body>
+
+</html>

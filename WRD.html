@@ -94,6 +94,7 @@
         .btn-link {
             background: transparent;
             color: white;
+            margin-left: 20px;
         }
 
         #hud {
@@ -113,6 +114,7 @@
     </div>
 
     <script>
+        let loopStarted = false;
         const key = 'LEARNING-HOURS';
         alert(`${Number(localStorage.getItem(key))} HOURS`)
         const addLearningHours = () => {
@@ -220,6 +222,14 @@
         }
 
         const handleClickRow = async (sentence) => {
+
+            if (loopStarted === false) {
+                workerLoop();
+                loopStarted = true;
+            }
+
+
+
             console.log(sentence);
             ++nClicked;
             curSentence = sentence;
@@ -228,7 +238,6 @@
 
         }
         const onLoad = async () => {
-            workerLoop();
             const sentences = await requestData();
             const list = document.getElementById("sentenceList");
             sentences.forEach(sentence => {

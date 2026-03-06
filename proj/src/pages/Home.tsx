@@ -11,7 +11,7 @@ const Home: React.FC = () => {
         pages.map((it) => (
           <div className={Styles.page}
             onClick={() => {
-              router.navigate(`/${it[0].toLocaleLowerCase()}`)
+              router.navigate(`/${it[0].toLowerCase().split(' ')[0]}`)
           }}>{it[0]}</div>
         ))
       }

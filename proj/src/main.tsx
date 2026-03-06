@@ -13,12 +13,12 @@ const listPageNames = [
   ['SNT_DLY', 'SNT_DLY_ruby.jsonl'],
   ['WRD_N5', 'WRD_N5_ruby.jsonl'],
   ['WRD_KANA_EXAMPLES', 'WRD_KANA_EXAMPLES.csv'],
-  ['SNT_KICK_START', 'SNT_KICK_START.csv'],
+  ['SNT_KICK_START 😺🍣🥢', 'SNT_KICK_START.csv'],
 ]
 
 const list = listPageNames.map((it) => {
   return {
-    path: it[0].toLowerCase(), element: (<SNT listName={it[1]} />)
+    path: it[0].toLowerCase().split(' ')[0], element: (<SNT listName={it[1]} />)
   }
 })
 

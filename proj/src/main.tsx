@@ -7,7 +7,20 @@ import Home from './pages/Home.tsx'
 import KANA from './pages/KANA.tsx'
 import SNT from './pages/SNT.tsx'
 // import WRD from './pages/WRD.tsx'
-// export const pageNames = ['KANA', 'WRD', 'SNT', 'SNT_DLY', 'WRD_N5']
+const listPageNames = [
+  ['WRD', 'WRD_ruby.jsonl'],
+  ['SNT', 'SNT1_ruby.jsonl'],
+  ['SNT_DLY', 'SNT_DLY_ruby.jsonl'],
+  ['WRD_N5', 'WRD_N5_ruby.jsonl'],
+  ['WRD_KANA_EXAMPLES', 'WRD_KANA_EXAMPLES.csv'],
+  ['SNT_KICK_START', 'SNT_KICK_START.csv'],
+]
+
+const list = listPageNames.map((it) => {
+  return {
+    path: it[0].toLowerCase(), element: (<SNT listName={it[1]} />)
+  }
+})
 
 const router = createBrowserRouter([
   {
@@ -17,10 +30,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "kana", element: <KANA /> },
-      { path: "wrd", element: <SNT listName='WRD_ruby' /> },
-      { path: "snt", element: <SNT listName='SNT1_ruby' /> },
-      { path: "snt_dly", element: <SNT listName='SNT_DLY_ruby' /> },
-      { path: "wrd_n5", element: <SNT listName='WRD_N5_ruby' /> },
+      ...list,
     ],
   },
 ])
@@ -32,5 +42,5 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode >
 )
 
-export { router };
+export { router, listPageNames };
 

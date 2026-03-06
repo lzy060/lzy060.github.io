@@ -7,40 +7,52 @@ interface IProps {
 }
 const SNT: React.FC<IProps> = (props : IProps) => {
   const {listName} = props;
-  const [list, setList] = useState<string[]>([])
+  const [list, setList] = useState<string[][]>([])
   useEffect(() => {
     const requestData = async () => {
-      const res = await fetch(`./${listName}.txt`);
+      const res = await fetch(`./${listName}`);
       const text = await res.text();
-      const lines = text.split('\n').slice(0, 5000);
+      const lines = text.split('\n').slice(0, 5000).map((l: string) => {
+        if (listName.includes('ruby')) {
+          return JSON.parse(l)
+        }
+
+        if (listName.includes('.csv')) {
+          return l.split(',')
+        }
+        return l
+      });
       setList(lines)
     }
     requestData()
-  }, [])
+  }, [listName])
+
+
+  const isRuby = listName.includes('ruby')
 
   return (
     <div className={Styles.listContainer}>
       <ol className={Styles.sentenceList}>
         {
           list.map((it_, index) => {
-            const [it, ruby] = JSON.parse(it_)
+            const [it, ruby] = it_
             return (
               <li className={Styles.sentenceItem} onClick={
                 (e) => {
                   const dom = e.target as HTMLElement
                   dom.style = 'background: transparent';
-                  // console.log(11111, dom)
-                  // setTimeout(() => {
-                  //   dom.style = 'background: unset';
-                  // }, 100)
-
                   e.stopPropagation();
                   TaskLoop.addTask(it);
                   TaskLoop.tryStart();
                 }
               }>
                 <span className={Styles.index}>{index + 1}</span>
-                <span className={Styles.text} dangerouslySetInnerHTML={{ __html: ruby }}></span>
+                {
+                  isRuby && (<span className={Styles.text} dangerouslySetInnerHTML={{ __html: ruby }}></span>)
+                }
+                {
+                  !isRuby && (<span className={Styles.text}>{it_.join(',  ')}</span>)
+                }
                 <span className={Styles.more} onClick={
                   (e) => {
                     e.stopPropagation();

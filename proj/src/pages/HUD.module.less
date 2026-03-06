@@ -1,0 +1,32 @@
+.hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    padding: 10px;
+    height: 100px;
+    width: 100%;
+    pointer-events: none;
+
+    /* Core modern fix */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    /* or translateZ(0) */
+
+    /* Extra insurance (Android often needs it) */
+    backface-visibility: hidden;
+
+    display: flex;
+    flex-direction: row;
+
+
+    .textRight {
+        margin-left: auto;
+        margin-right: 20px;
+        opacity: 0.5;
+    }
+
+    .textLeft {
+        opacity: 0.5;
+    }
+}

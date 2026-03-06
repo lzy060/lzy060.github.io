@@ -1,0 +1,53 @@
+.listContainer {
+    max-width: 900px;
+    margin: 0 auto;
+
+    .sentenceList {
+        counter-reset: sentence;
+        list-style: none;
+        padding: 0;
+        padding: 10px;
+
+        .sentenceItem {
+            counter-increment: sentence;
+            position: relative;
+            padding: 10px 10px;
+            margin-bottom: 12px;
+            background: #1a1a20;
+            border-radius: 10px;
+            /* border-left: 4px solid #4a90e2; */
+            transition: all 0.18s ease;
+            /* min-height: 3.2em; */
+
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+
+            .text {
+                word-break: break-word;
+                hyphens: auto;
+                pointer-events: none;
+            }
+
+            .index {
+                min-width: 50px;
+                text-align: right;
+                opacity: 0.5;
+                pointer-events: none;
+                user-select: none;
+                /* ← most important line */
+                -webkit-user-select: none;
+                /* Safari/iOS */
+                -moz-user-select: none;
+                /* older Firefox if needed */
+            }
+
+            .more {
+                margin-left: auto;
+                margin-right: 10px;
+                opacity: 0.5;
+                cursor: pointer;
+            }
+        }
+    }
+}

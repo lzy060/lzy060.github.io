@@ -66,7 +66,14 @@ const KANA: React.FC = () => {
     setTimeout(() => {
       (e.target as HTMLElement).style = 'opacity: 1'
     }, 100)
-    TaskLoop.addTask(e.target.textContent.split('/')[0]);
+
+    // 
+
+    let targetKana = e.target.textContent.split('/')[0].trim()
+    if (targetKana === 'は') {
+      targetKana = 'ハ'
+    }
+    TaskLoop.addTask(targetKana);
     TaskLoop.tryStart();
   }
   refAllSeion.current = [];

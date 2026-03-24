@@ -11,7 +11,6 @@
 上げる,あげる,"to raise, to lift",JLPT JLPT_3 JLPT_5 JLPT_N5
 朝,あさ,morning,Genki Genki_Ln.3 Intermediate_Japanese Intermediate_Japanese_Ln.2 JLPT JLPT_5 JLPT_N5
 朝御飯,あさごはん,breakfast,Genki Genki_Ln.3 JLPT JLPT_5 JLPT_N5
-明後日,あさって,day after tomorrow,JLPT JLPT_5 JLPT_N5
 足; 脚,あし,foot; leg,JLPT JLPT_5 JLPT_N5
 明日,あした,tomorrow,Genki Genki_Ln.3 Intermediate_Japanese Intermediate_Japanese_Ln.7 JLPT JLPT_3 JLPT_5 JLPT_N5
 あそこ,あそこ,"there, over there, that place",Genki Genki_Ln.2 JLPT JLPT_5 JLPT_N5

@@ -2,7 +2,7 @@ import { kanaData, chartData, dakuonMapping } from '../lib/Kana'
 import Styles from './KANA.module.less'
 import TaskLoop from "../lib/TaskLoop"
 import classNames from 'classnames'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 const KANA: React.FC = () => {
   const [isHideRomaji, setIsHideRomaji] = useState(false);

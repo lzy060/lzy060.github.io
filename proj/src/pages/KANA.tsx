@@ -7,9 +7,6 @@ import { useRef, useState } from 'react'
 const KANA: React.FC = () => {
 
   const refAllSeion = useRef<string[]>([])
-  const refAllSeionDakuon = useRef<string[]>([])
-  const refAllSounds = useRef<string[]>([])
-
 
   const [isHideRomaji, setIsHideRomaji] = useState(false);
   const [isHideHiragana] = useState(false);
@@ -80,8 +77,6 @@ const KANA: React.FC = () => {
     TaskLoop.tryStart();
   }
   refAllSeion.current = [];
-  refAllSeionDakuon.current = [];
-  refAllSounds.current = [];
 
   return (
     <div className={classNames(Styles.kana, isHideRomaji && Styles.isHideRomaji, isHideHiragana && Styles.isHideHiragana, isHideKatakana && Styles.isHideKatakana)}>
@@ -111,7 +106,7 @@ const KANA: React.FC = () => {
                       <div>
                         {/* Seion */}
                         {
-                          hiragana && refAllSeion.current.push(hiragana) && refAllSeionDakuon.current.push(hiragana) && refAllSounds.current.push(hiragana) && (
+                          hiragana && refAllSeion.current.push(hiragana) && (
                             <>
                               <span className={Styles.basicKanaSeionRomaji}>{kana2romaji(hiragana)}</span>
                               <span className={Styles.basicKanaSeion} onClick={handleClick}>
@@ -127,7 +122,7 @@ const KANA: React.FC = () => {
 
                         {/* Dakuon */}
                         {
-                          dakuon && refAllSeionDakuon.current.push(hiragana) && refAllSounds.current.push(hiragana) && (
+                          dakuon && (
                             <>
                               <span className={Styles.basicKanaSeionRomaji}>{kana2romaji(dakuon)}</span>
                               <span className={Styles.basicKanaSeion} onClick={handleClick}>
@@ -141,7 +136,7 @@ const KANA: React.FC = () => {
 
                         {/* hanDakuon */}
                         {
-                          handakuon && refAllSeionDakuon.current.push(hiragana) && refAllSounds.current.push(hiragana) && (
+                          handakuon && (
                             <>
                               <span className={Styles.basicKanaSeionRomaji}>{kana2romaji(handakuon)}</span>
                               <span className={Styles.basicKanaSeion} onClick={handleClick}>
@@ -160,7 +155,7 @@ const KANA: React.FC = () => {
                           youonTails.map((it) => {
                             const tragetYouon = `${hiragana}${it[0]}`
                             const tragetRomaji = kana2romaji(tragetYouon)
-                            return tragetRomaji && refAllSounds.current.push(tragetYouon) && (
+                            return tragetRomaji && (
                               (
                                 <>
                                   <span className={Styles.basicKanaSeionRomaji}>{tragetRomaji}</span>
@@ -201,30 +196,6 @@ const KANA: React.FC = () => {
           }}>
           {'Read all(seion)'}
         </div>
-
-
-        <div
-          onClick={() => {
-            refAllSeionDakuon.current.forEach((s) => {
-              TaskLoop.addTask(s);
-            })
-            TaskLoop.tryStart();
-          }}>
-          {'Read all(seion + Dakuon + hanDakuon)'}
-        </div>
-
-        <div
-          onClick={() => {
-            refAllSounds.current.forEach((s) => {
-              TaskLoop.addTask(s);
-            })
-            TaskLoop.tryStart();
-          }}>
-          {'Read all'}
-        </div>
-
-
-
         {/* <div
           onClick={() => {
             setIsHideHiragana((s) => !s)

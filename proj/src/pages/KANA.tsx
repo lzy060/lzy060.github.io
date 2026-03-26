@@ -5,16 +5,16 @@ import classNames from 'classnames'
 import { useRef, useState } from 'react'
 
 const KANA: React.FC = () => {
-
-  const refAllSeion = useRef<string[]>([])
-
   const [isHideRomaji, setIsHideRomaji] = useState(false);
   const [isHideHiragana] = useState(false);
   const [isHideKatakana] = useState(false);
 
   console.log({ kanaData, chartData, dakuonMapping })
   const basicDataOnly = chartData.basic.slice(1, chartData.basic.length).map((it) => it.slice(1, 6))
-  console.log('basicDataOnly', basicDataOnly, { kanaData, chartData, dakuonMapping })
+
+  const allBasicSounds = basicDataOnly
+  const allSounds = chartData.allSounds
+  console.log('basicDataOnly', {basicDataOnly, kanaData, chartData, dakuonMapping, allSounds })
 
   const kana2romaji = (k: string) => {
     const realKey = k.split('/')[0]
@@ -76,7 +76,6 @@ const KANA: React.FC = () => {
     TaskLoop.addTask(targetKana);
     TaskLoop.tryStart();
   }
-  refAllSeion.current = [];
 
   return (
     <div className={classNames(Styles.kana, isHideRomaji && Styles.isHideRomaji, isHideHiragana && Styles.isHideHiragana, isHideKatakana && Styles.isHideKatakana)}>
@@ -106,7 +105,7 @@ const KANA: React.FC = () => {
                       <div>
                         {/* Seion */}
                         {
-                          hiragana && refAllSeion.current.push(hiragana) && (
+                          hiragana && (
                             <>
                               <span className={Styles.basicKanaSeionRomaji}>{kana2romaji(hiragana)}</span>
                               <span className={Styles.basicKanaSeion} onClick={handleClick}>
@@ -189,12 +188,30 @@ const KANA: React.FC = () => {
 
         <div
           onClick={() => {
-            refAllSeion.current.forEach((s) => {
-              TaskLoop.addTask(s);
+            allBasicSounds.flat(2).forEach((s) => {
+              let target = s.split('/')[0]
+              if (target === 'は') {
+                target = 'ハ'
+              }
+              TaskLoop.addTask(target);
             })
             TaskLoop.tryStart();
           }}>
-          {'Read all(seion)'}
+          {'Read all(Seion)'}
+        </div>
+
+        <div
+          onClick={() => {
+            allSounds.flat(2).forEach((s) => {
+              let target = s.split('/')[0]
+              if (target === 'は') {
+                target = 'ハ'
+              }
+              TaskLoop.addTask(target);
+            })
+            TaskLoop.tryStart();
+          }}>
+          {'Read all(Seion + Dakuon)'}
         </div>
         {/* <div
           onClick={() => {

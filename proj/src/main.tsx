@@ -14,6 +14,8 @@ const listPageNames = [
   ['WRD_N5', 'WRD_N5_ruby.jsonl'],
   ['WRD_KANA_EXAMPLES', 'WRD_KANA_EXAMPLES.csv'],
   ['SNT_KICK_START 😺🍣🥢', 'SNT_KICK_START.csv'],
+  ['VOC1172', 'VOC1172.csv'],
+  ['KANJI317', 'KANJI317.csv'],
 ]
 
 const list = listPageNames.map((it) => {

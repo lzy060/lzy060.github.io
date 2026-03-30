@@ -77,6 +77,20 @@ const KANA: React.FC = () => {
     TaskLoop.tryStart();
   }
 
+   const youonHi2Ka = (k: string) => {
+      const youon = chartData.youon.flat(2);
+      const mapping: { [key: string]: string }  = {};
+      youon.forEach((it: string) => {
+        const realKey = it.split('/')[0];
+        const realValue = it.split('/')?.[1];
+        if (realKey && realValue) {
+          mapping[realKey] = realValue;
+        }
+      })
+    return mapping[k];
+  }
+
+
   return (
     <div className={classNames(Styles.kana, isHideRomaji && Styles.isHideRomaji, isHideHiragana && Styles.isHideHiragana, isHideKatakana && Styles.isHideKatakana)}>
       <table border={1} cellPadding={8} style={{ borderCollapse: 'collapse', width: '100%' }}>
@@ -159,9 +173,9 @@ const KANA: React.FC = () => {
                                 <>
                                   <span className={Styles.basicKanaSeionRomaji}>{tragetRomaji}</span>
                                   <span className={Styles.basicKanaSeion} onClick={handleClick}>
-                                    {`${hiragana}${it[0]}`}
+                                    {`${tragetYouon}`}
                                     <em className={Styles.basicKanaSeionSep}> / </em>
-                                    {`${katakana}${it[1]}`}
+                                    {`${youonHi2Ka(tragetYouon)}`}
                                   </span>
                                   <br />
                                 </>
@@ -170,6 +184,44 @@ const KANA: React.FC = () => {
                           })
                         }
                         {/*浊音半浊音拗音*/}
+                        {
+                          youonTails.map((it) => {
+                            const tragetYouon = `${dakuon}${it[0]}`
+                            const tragetRomaji = kana2romaji(tragetYouon)
+                            return tragetRomaji && (
+                              (
+                                <>
+                                  <span className={Styles.basicKanaSeionRomaji}>{tragetRomaji}</span>
+                                  <span className={Styles.basicKanaSeion} onClick={handleClick}>
+                                    {`${tragetYouon}`}
+                                    <em className={Styles.basicKanaSeionSep}> / </em>
+                                    {`${youonHi2Ka(tragetYouon)}`}
+                                  </span>
+                                  <br />
+                                </>
+                              )
+                            )
+                          })
+                        }
+                        {
+                          youonTails.map((it) => {
+                            const tragetYouon = `${handakuon}${it[0]}`
+                            const tragetRomaji = kana2romaji(tragetYouon)
+                            return tragetRomaji && (
+                              (
+                                <>
+                                  <span className={Styles.basicKanaSeionRomaji}>{tragetRomaji}</span>
+                                  <span className={Styles.basicKanaSeion} onClick={handleClick}>
+                                     {`${tragetYouon}`}
+                                    <em className={Styles.basicKanaSeionSep}> / </em>
+                                    {`${youonHi2Ka(tragetYouon)}`}
+                                  </span>
+                                  <br />
+                                </>
+                              )
+                            )
+                          })
+                        }
 
                       </div>
                     </td>

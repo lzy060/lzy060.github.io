@@ -6,6 +6,8 @@ import { useState } from 'react'
 
 const KANA: React.FC = () => {
   const [isHideRomaji, setIsHideRomaji] = useState(false);
+  const [isHideYouon, setIsHideYouon] = useState(false);
+
   const [isHideHiragana] = useState(false);
   const [isHideKatakana] = useState(false);
 
@@ -168,7 +170,7 @@ const KANA: React.FC = () => {
                           youonTails.map((it) => {
                             const tragetYouon = `${hiragana}${it[0]}`
                             const tragetRomaji = kana2romaji(tragetYouon)
-                            return tragetRomaji && (
+                            return tragetRomaji && !isHideYouon && (
                               (
                                 <>
                                   <span className={Styles.basicKanaSeionRomaji}>{tragetRomaji}</span>
@@ -188,7 +190,7 @@ const KANA: React.FC = () => {
                           youonTails.map((it) => {
                             const tragetYouon = `${dakuon}${it[0]}`
                             const tragetRomaji = kana2romaji(tragetYouon)
-                            return tragetRomaji && (
+                            return tragetRomaji && !isHideYouon && (
                               (
                                 <>
                                   <span className={Styles.basicKanaSeionRomaji}>{tragetRomaji}</span>
@@ -207,7 +209,7 @@ const KANA: React.FC = () => {
                           youonTails.map((it) => {
                             const tragetYouon = `${handakuon}${it[0]}`
                             const tragetRomaji = kana2romaji(tragetYouon)
-                            return tragetRomaji && (
+                            return tragetRomaji && !isHideYouon && (
                               (
                                 <>
                                   <span className={Styles.basicKanaSeionRomaji}>{tragetRomaji}</span>
@@ -238,6 +240,12 @@ const KANA: React.FC = () => {
           onClick={() => {
             setIsHideRomaji((s) => !s)
           }}>Hide Romaji
+        </div>
+
+        <div
+          onClick={() => {
+            setIsHideYouon((s) => !s)
+          }}>Hide Youon
         </div>
 
         <div

@@ -14,7 +14,7 @@ const KANA: React.FC = () => {
 
   const allBasicSounds = basicDataOnly
   const allSounds = chartData.allSounds
-  console.log('basicDataOnly', {basicDataOnly, kanaData, chartData, dakuonMapping, allSounds })
+  console.log('basicDataOnly', { basicDataOnly, kanaData, chartData, dakuonMapping, allSounds })
 
   const kana2romaji = (k: string) => {
     const realKey = k.split('/')[0]
@@ -163,11 +163,13 @@ const KANA: React.FC = () => {
                                     <em className={Styles.basicKanaSeionSep}> / </em>
                                     {`${katakana}${it[1]}`}
                                   </span>
-                                  <br /></>
+                                  <br />
+                                </>
                               )
                             )
                           })
                         }
+                        {/*浊音半浊音拗音*/}
 
                       </div>
                     </td>

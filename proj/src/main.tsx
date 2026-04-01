@@ -16,6 +16,7 @@ const listPageNames = [
   ['SNT_KICK_START 😺🍣🥢', 'SNT_KICK_START.csv'],
   ['VOC1172', 'VOC1172.csv'],
   ['KANJI317', 'KANJI317.csv'],
+  ['MLC', 'MLC.csv'],
 ]
 
 const list = listPageNames.map((it) => {

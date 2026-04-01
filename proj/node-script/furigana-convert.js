@@ -5,10 +5,10 @@ import Kuroshiro from "kuroshiro";
 // For this example, you should npm install and import the kuromoji analyzer first
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
 const jsonLines = [];
-const file = 'WRD_N5'
+const file = '銀の龍の背に乗って'
 const run = async () => {
     const kuroshiro = new Kuroshiro.default();
-    const data = fs.readFileSync(`../public/${file}.txt`, 'utf-8').split('\n');
+    const data = fs.readFileSync(`./${file}.txt`, 'utf-8').split('\n');
     // console.log(data)
     await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "../kuromoji.js-master/dict" }));
 

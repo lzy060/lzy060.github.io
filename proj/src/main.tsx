@@ -18,6 +18,7 @@ const listPageNames = [
   ['KANJI317', 'KANJI317.csv'],
   ['MLC', 'MLC.csv'],
   ['銀の龍の背に乗って', '銀の龍の背に乗って_ruby.jsonl'],
+  ['MLC_BUT_OR', 'MLC_BUT_OR.csv'],
 ]
 
 const list = listPageNames.map((it) => {

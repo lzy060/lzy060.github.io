@@ -101,3 +101,26 @@
 ごご, PM,　gogo
 よる, night, yoru
 
+月曜日, Monday　げつようび　getsu-youbi
+火曜日, Tuesday　かようび　ka-youbi
+水曜日, Wednesday　すいようび　sui-youbi
+木曜日, Thursday　もくようび　moku-youbi
+金曜日, Friday　きんようび　kin-youbi
+土曜日, Saturday　どようび　do-youbi
+日曜日, Sunday　にちようび　nichi-youbi
+週末, weekend　しゅうまつ　shuumatsu
+平日, weekday　へいじつ　heijitsu
+
+いちがつ, 1　Jannary　　ichi-gatsu
+にがつ, 2　February　　ni-gatsu
+さんがつ, 3　March　　san-gatsu
+しがつ, 4　April　　shi-gatsu (not よんがつ yon-gatsu)
+ごがつ, 5　May　　go-gatsu
+ろくがつ, 6　June　　roku-gatsu
+しちがつ, 7　July　　shichi-gatsu (not なながつ nana-gatsu)
+はちがつ, 8　August　　hachi-gatsu
+くがつ, 9　September　　ku-gatsu (not きゅうがつ kyuu-gatsu)
+じゅうがつ, 10　October　　juu-gatsu
+じゅういちがつ, 11　November　　juuichi-gatsu
+じゅうにがつ,12　December　　juuni-gatsu
+

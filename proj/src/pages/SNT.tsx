@@ -13,6 +13,9 @@ const SNT: React.FC<IProps> = (props : IProps) => {
       const res = await fetch(`./${listName}`);
       const text = await res.text();
       const lines = text.split('\n').slice(0, 5000).map((l: string) => {
+        if (!l) {
+          return l
+        }
         if (listName.includes('ruby')) {
           return JSON.parse(l)
         }

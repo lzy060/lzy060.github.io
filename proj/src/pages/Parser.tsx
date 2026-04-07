@@ -9,6 +9,7 @@ interface IProps {
   listName?: string;
 }
 const SNT: React.FC<IProps> = (props: IProps) => {
+  const [text, setText] = useState<string>('銀の龍の背に乗って')
 
   const allSounds = chartData.allSounds
   const youon = chartData.youon
@@ -36,7 +37,7 @@ const SNT: React.FC<IProps> = (props: IProps) => {
 
         console.log(err)
 
-        const path = tokenizer.tokenize("崖を登り呼ぶよ「さあ行こうぜ」3");
+        const path = tokenizer.tokenize(text);
         const list: string[][] = [];
         const map: any = {};
         path.forEach((element: any) => {
@@ -50,7 +51,7 @@ const SNT: React.FC<IProps> = (props: IProps) => {
       });
     }
     requestData()
-  }, [listName])
+  }, [text])
 
 
   const isRuby = listName?.includes('ruby')
@@ -58,7 +59,17 @@ const SNT: React.FC<IProps> = (props: IProps) => {
 
   return (
     <div className={Styles.listContainer}>
+
+
       <ol className={Styles.sentenceList}>
+        {
+          <textarea
+            defaultValue={text}
+            onChange={(e) => setText(e.target.value)} // Update state on change
+            placeholder="Enter your text"
+ 
+          />
+        }
         {
           list.map((it_, index) => {
             const [it, ruby] = it_
@@ -90,7 +101,17 @@ const SNT: React.FC<IProps> = (props: IProps) => {
           })
         }
       </ol>
+         <div
+          onClick={() => {
+            list.forEach((s) => {
+              TaskLoop.addTask(s[0]);
+            })
+            TaskLoop.tryStart();
+          }}>
+          {'Read all'}
+        </div>
     </div>
+    
   )
 }
 

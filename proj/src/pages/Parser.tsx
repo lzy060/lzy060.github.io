@@ -19,6 +19,12 @@ const SNT: React.FC<IProps> = (props: IProps) => {
 
   const allHiragana = allKanas.map((it) => it.split('/')[0])
   const allkatagana = allKanas.map((it) => it.split('/')[1])
+  const katagana2Hiragana = (s: string) => {
+    const chars = s.split('');
+    return chars.map((it) => {
+      return allHiragana[allkatagana.indexOf(it)] || it
+    }).join('')
+  }
 
   const { listName } = props;
   const [list, setList] = useState<string[][]>([])
@@ -34,15 +40,13 @@ const SNT: React.FC<IProps> = (props: IProps) => {
         const list: string[][] = [];
         const map: any = {};
         path.forEach((element: any) => {
-          const { pronunciation, surface_form, pos } = element;
-          if (!map[surface_form] && pos !== '記号' && pronunciation && !allkatagana.includes(surface_form) && !allHiragana.includes(surface_form)) {
-            list.push([surface_form, pronunciation])
+          const { reading, surface_form, pos } = element;
+          if (!map[surface_form] && pos !== '記号' && reading && !allkatagana.includes(surface_form) && !allHiragana.includes(surface_form)) {
+            list.push([surface_form, katagana2Hiragana(reading), reading])
           }
           map[surface_form] = element
-          // console.log(element)
         });
         setList(list)
-        // console.log(1111, path);
       });
     }
     requestData()

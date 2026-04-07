@@ -6,6 +6,7 @@ import Layout from './pages/Layout.tsx'
 import Home from './pages/Home.tsx'
 import KANA from './pages/KANA.tsx'
 import SNT from './pages/SNT.tsx'
+import Parser from './pages/Parser.tsx'
 // import WRD from './pages/WRD.tsx'
 const listPageNames = [
   ['WRD', 'WRD_ruby.jsonl'],
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "kana", element: <KANA /> },
+      { path: "parser-tool", element: <Parser /> },
       ...list,
     ],
   },

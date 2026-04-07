@@ -4,7 +4,7 @@ import { router } from '../main'
 import { listPageNames } from '../main'
 
 const Home: React.FC = () => {
-  const pages = [['KANA', ''], ...listPageNames]
+  const pages = [['KANA', ''], ...listPageNames, ['PARSER-TOOL', '']]
   return (
     <div className={Styles.intro}>
       {

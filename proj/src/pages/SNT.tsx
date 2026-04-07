@@ -14,7 +14,7 @@ const SNT: React.FC<IProps> = (props : IProps) => {
       const text = await res.text();
       const lines = text.split('\n').slice(0, 5000).map((l: string) => {
         if (!l) {
-          return l
+          return ''
         }
         if (listName.includes('ruby')) {
           return JSON.parse(l)
@@ -25,7 +25,7 @@ const SNT: React.FC<IProps> = (props : IProps) => {
         }
         return l
       });
-      setList(lines)
+      setList(lines.filter((it) => it !== ''))
     }
     requestData()
   }, [listName])

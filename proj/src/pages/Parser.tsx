@@ -9,6 +9,7 @@ interface IProps {
   listName?: string;
 }
 const SNT: React.FC<IProps> = (props: IProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [text, setText] = useState<string>('銀の龍の背に乗って')
 
   const allSounds = chartData.allSounds
@@ -33,6 +34,7 @@ const SNT: React.FC<IProps> = (props: IProps) => {
     const requestData = async () => {
       const kuromoji: any = (window as any).kuromoji;
       kuromoji?.builder({ dicPath: "kuromoji.js/dict/" }).build(function (err: any, tokenizer: any) {
+        setIsLoading(false)
         // tokenizer is ready
 
         console.log(err)
@@ -51,10 +53,15 @@ const SNT: React.FC<IProps> = (props: IProps) => {
       });
     }
     requestData()
-  }, [text])
+  }, [text, isLoading])
 
 
   const isRuby = listName?.includes('ruby')
+
+
+  if (isLoading) {
+    return <div className={Styles.loading}>loading...</div>
+  }
 
 
   return (

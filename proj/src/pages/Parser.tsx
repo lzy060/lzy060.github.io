@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import Styles from './SNT.module.less'
 import TaskLoop from "../lib/TaskLoop"
-import { kanaData, chartData, dakuonMapping } from '../lib/Kana'
+import { chartData } from '../lib/Kana'
 
 
 interface IProps {
@@ -20,9 +20,6 @@ const SNT: React.FC<IProps> = (props: IProps) => {
   const allHiragana = allKanas.map((it) => it.split('/')[0])
   const allkatagana = allKanas.map((it) => it.split('/')[1])
 
-
-  console.log(1111, {allHiragana, allkatagana})
-
   const { listName } = props;
   const [list, setList] = useState<string[][]>([])
   useEffect(() => {
@@ -30,6 +27,8 @@ const SNT: React.FC<IProps> = (props: IProps) => {
       const kuromoji: any = (window as any).kuromoji;
       kuromoji?.builder({ dicPath: "kuromoji.js/dict/" }).build(function (err: any, tokenizer: any) {
         // tokenizer is ready
+
+        console.log(err)
 
         const path = tokenizer.tokenize("崖を登り呼ぶよ「さあ行こうぜ」3");
         const list: string[][] = [];
@@ -40,7 +39,7 @@ const SNT: React.FC<IProps> = (props: IProps) => {
             list.push([surface_form, pronunciation])
           }
           map[surface_form] = element
-          console.log(element)
+          // console.log(element)
         });
         setList(list)
         // console.log(1111, path);

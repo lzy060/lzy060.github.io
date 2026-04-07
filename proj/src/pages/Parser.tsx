@@ -16,8 +16,7 @@ const SNT: React.FC<IProps> = (props: IProps) => {
       kuromoji?.builder({ dicPath: "kuromoji.js/dict/" }).build(function (err: any, tokenizer: any) {
         // tokenizer is ready
 
-        
-        const path = tokenizer.tokenize("すもももももももものうち");
+        const path = tokenizer.tokenize("崖を登り呼ぶよ「さあ行こうぜ」3");
         console.log(1111, path);
       });
 

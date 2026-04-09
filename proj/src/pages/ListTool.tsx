@@ -21,8 +21,6 @@ const SNT: React.FC<IProps> = (props: IProps) => {
 
     const csvlines = text.split('\n').filter((it) => it !== '').map((li) => li.split(','));
     setList(csvlines)
-
-    console.log(1111, csvlines)
     setIsLoading(false)
 
   }, [text, isLoading])
@@ -39,9 +37,7 @@ const SNT: React.FC<IProps> = (props: IProps) => {
             let pronounce = input;
             const regex = /(.*)\{(.*)\}/;
             const matches = input.match(regex);
-            console.log(111331, matches)
             if (matches?.length === 3) {
-              console.log(1111, matches)
               pronounce = matches[2]
             }
             return pronounce;
@@ -69,8 +65,6 @@ const SNT: React.FC<IProps> = (props: IProps) => {
                   const dom = e.target as HTMLElement
                   dom.style = 'background: transparent';
                   e.stopPropagation();
-
-                  console.log(111111, it, parsedPronounce(it))
                   TaskLoop.addTask(parsedPronounce(it));
                   TaskLoop.tryStart();
                 }

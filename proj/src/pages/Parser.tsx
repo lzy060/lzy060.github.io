@@ -15,10 +15,10 @@ const SNT: React.FC<IProps> = (props: IProps) => {
   const allSounds = chartData.allSounds
   const youon = chartData.youon
 
-  const allKanas = [...allSounds.flat(2), ...youon.flat(2)].map((it) => {
+  const smallChars = ['ゃ/ャ', 'ゅ/ュ', 'ょ/ョ', 'っ/ッ']
+  const allKanas = [...allSounds.flat(2), ...youon.flat(2), ...smallChars].map((it) => {
     return it.split(' ')[0]
   }).filter((it) => it.includes('/'));
-
   const allHiragana = allKanas.map((it) => it.split('/')[0])
   const allkatagana = allKanas.map((it) => it.split('/')[1])
   const katagana2Hiragana = (s: string) => {

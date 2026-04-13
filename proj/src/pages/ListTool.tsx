@@ -18,11 +18,23 @@ const SNT: React.FC<IProps> = (props: IProps) => {
   const { listName } = props;
   const [list, setList] = useState<string[][]>([])
   useEffect(() => {
+    const request = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      let textFromUrl = ''
+      const listUrl = urlParams.get('list');
+      if (listUrl) {
+        const res = await fetch(listUrl);
+        textFromUrl = await res.text();
+      }
 
-    const csvlines = text.split('\n').filter((it) => it !== '').map((li) => li.split(','));
-    setList(csvlines)
-    setIsLoading(false)
-
+      if (textFromUrl) {
+        setText(textFromUrl);
+      }
+      const csvlines = text.split('\n').filter((it) => it !== '').map((li) => li.split(','));
+      setList(csvlines)
+      setIsLoading(false)
+    }
+    request()
   }, [text, isLoading])
 
 
@@ -34,13 +46,13 @@ const SNT: React.FC<IProps> = (props: IProps) => {
   }
 
   const parsedPronounce = (input: string) => {
-            let pronounce = input;
-            const regex = /(.*)\{(.*)\}/;
-            const matches = input.match(regex);
-            if (matches?.length === 3) {
-              pronounce = matches[2]
-            }
-            return pronounce;
+    let pronounce = input;
+    const regex = /(.*)\{(.*)\}/;
+    const matches = input.match(regex);
+    if (matches?.length === 3) {
+      pronounce = matches[2]
+    }
+    return pronounce;
   }
 
   return (

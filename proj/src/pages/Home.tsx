@@ -11,7 +11,7 @@ const Home: React.FC = () => {
         pages.map((it) => (
           <div className={Styles.page}
             onClick={() => {
-              if (it[1]) {
+              if (it[1]?.endsWith('html')) {
                 window.open(it[1])
               } else {
                 router.navigate(`/${it[0].toLowerCase().split(' ')[0]}`)

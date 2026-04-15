@@ -2,11 +2,13 @@
 import { useEffect, useState } from "react"
 import Styles from './SNT.module.less'
 import TaskLoop from "../lib/TaskLoop"
+import { useLocation } from "react-router-dom";
 
 interface IProps {
   listName?: string;
 }
 const SNT: React.FC<IProps> = (props: IProps) => {
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState<boolean>(true)
   let test = `
 銀{ぎん}
@@ -19,7 +21,7 @@ const SNT: React.FC<IProps> = (props: IProps) => {
   const [list, setList] = useState<string[][]>([])
   useEffect(() => {
     const request = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
+      const urlParams = new URLSearchParams(location.search);
       let textFromUrl = ''
       const listUrl = urlParams.get('list');
       if (listUrl) {

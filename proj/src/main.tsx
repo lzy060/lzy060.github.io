@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createHashRouter } from 'react-router-dom'
 import Layout from './pages/Layout.tsx'
 import Home from './pages/Home.tsx'
 import KANA from './pages/KANA.tsx'
@@ -30,7 +30,7 @@ const list = listPageNames.map((it) => {
   }
 })
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Layout />,

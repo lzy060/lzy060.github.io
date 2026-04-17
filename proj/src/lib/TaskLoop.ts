@@ -56,8 +56,10 @@ const TaskLoop = {
             });
         }
 
-        // Try to find a good Japanese voice
-        let japaneseVoice = voices.find(v => v.lang === "ja-JP" || v.lang === "ja");
+         let japaneseVoice = voices.find(v => v.name === "O-Ren")
+         || voices.find(v => v.name === "Hattori")
+         || voices.find(v => v.name === "Kyoko")
+         || voices.find(v => v.lang === "ja-JP" || v.lang === "ja")
 
         // Fallback: any ja* voice
         if (!japaneseVoice) {

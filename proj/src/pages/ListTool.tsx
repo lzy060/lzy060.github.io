@@ -105,6 +105,17 @@ const SNT: React.FC<IProps> = (props: IProps) => {
         onClick={() => {
           list.forEach((s) => {
             TaskLoop.addTask(parsedPronounce(s[0]));
+            TaskLoop.addTask(parsedPronounce(s[0]));
+            TaskLoop.addTask(parsedPronounce(s[0]));
+          })
+          TaskLoop.tryStart();
+        }}>
+        {'Read all (x3)'}
+      </div>
+      <div
+        onClick={() => {
+          list.forEach((s) => {
+            TaskLoop.addTask(parsedPronounce(s[0]));
           })
           TaskLoop.tryStart();
         }}>
